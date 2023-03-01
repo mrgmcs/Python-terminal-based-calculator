@@ -1,5 +1,4 @@
-#testlist = ["12", "/", "(","10" , "*","12",")", "/", "3", "*", "2" , "/", "2" , "+", "0.2", "-" , "3"]
-
+#functions
 def split_input(user_input):
     number = ""
     splited = []
@@ -13,6 +12,11 @@ def split_input(user_input):
             number = ""
         elif i == "":
             pass
+        elif i == "(" or i == ")":
+            if number:
+                splited.append(number)
+            splited.append(i)
+            number=""
         else:
             if number:
                 splited.append(number)
@@ -99,12 +103,11 @@ def find_p(val, index_po, index_pc):
     if index_po<index_pc:
         return list((index_po, index_pc))
     else:
-        return "input error"
-    
+        return "input error" 
 def operation_p(listed):
     while "(" in listed:
         in_parentheses = find_p(listed,index_po=0,index_pc=0)
         resualt = operation(listed[in_parentheses[0]+1: in_parentheses[1]])[0]
-        listed[in_parentheses[0]] = resualt
+        listed[in_parentheses[0]] = str(resualt)
         del listed[in_parentheses[0]+1:in_parentheses[1]+1]
     return listed
